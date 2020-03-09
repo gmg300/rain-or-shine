@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+    <link rel="stylesheet" href="assets/css/style.css">
+    <title>Weather Dashboard</title>
+</head>
+
+<body>
+    <header class="container-fluid bg-darkgray text-center">
+        <h1 class="text-light display-4 py-3 mb-0">Weather Dashboard</h1>
+    </header>
+    <main class="container-fluid bg-light">
+        <div class="row">
+            <div class="col-3 pt-3">
+                <h3 class="text-dark pl-3">Search by city:</h3>
+                <div class="input-group px-3 pb-3">
+                    <input type="search" class="form-control" placeholder="Search" aria-label="Search"
+                        aria-describedby="button-addon2">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="button" id="button-addon2"><i
+                                class="fas fa-search"></i></button>
+                    </div>
+                </div>
+                <div>
+                    <div class="list-group" id="list-tab" role="tablist">
+                        <a class="list-group-item list-group-item-action active" id="list-chi-list" data-toggle="list"
+                            href="#list-home" role="tab" aria-controls="home">Chicago</a>
+                        <a class="list-group-item list-group-item-action" id="list-sf-list" data-toggle="list"
+                            href="#list-profile" role="tab" aria-controls="profile">San Francisco</a>
+                        <a class="list-group-item list-group-item-action" id="list-den-list" data-toggle="list"
+                            href="#list-messages" role="tab" aria-controls="messages">Denver</a>
+                        <a class="list-group-item list-group-item-action" id="list-sea-list" data-toggle="list"
+                            href="#list-settings" role="tab" aria-controls="settings">Seattle</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-9">
+                <div id="currentWeather" class="border border-dark rounded p-3 mt-3">
+                    <h2 id="currentCity" class="pb-3">Chicago<span id="currentDate"> (3/11/20) </span><i
+                            id="weatherIcon" class="fas fa-cloud"></i></h2>
+                    <p>Temperature: <span id="temp">47.5</span>&#176;F</p>
+                    <p>Humidity: <span id="humidity">41</span>%</p>
+                    <p>Wind Speed: <span id="wind">4.7</span>MPH</p>
+                    <p>UV Index: <span id="uv" class="bg-danger rounded text-light p-1">9.49</span></p>
+                </div>
+                <div id="forecast" class="p-3">
+                    <div class="row">
+                        <div class="mt-3">
+                            <h2>5-Day Forecast:</h2>
+                        </div>
+                        <div class="card-group">
+                            <div class="card m-2 bg-primary rounded text-light">
+                                <div class="card-header">Day + 1</div>
+                                <div class="card-body">
+                                    <i id="day1-icon" class="mb-1 fas fa-3x fa-sun"></i>
+                                    <p>Temperature: <span id="temp">47.5</span>&#176;F</p>
+                                    <p>Humidity: <span id="humidity">41</span>%</p>
+                                    <p>Wind Speed: <span id="wind">4.7</span>MPH</p>
+                                    <p>UV Index: <span id="uv" class="bg-danger rounded text-light p-1">9.49</span></p>
+                                </div>
+                            </div>
+                            <div class="card m-2 bg-primary rounded text-light">
+                                <div class="card-header">Day + 2</div>
+                                <div class="card-body">
+                                    <i id="day2-icon" class="mb-1 fas fa-3x fa-sun"></i>
+                                    <p>Temperature: <span id="temp">47.5</span>&#176;F</p>
+                                    <p>Humidity: <span id="humidity">41</span>%</p>
+                                    <p>Wind Speed: <span id="wind">4.7</span>MPH</p>
+                                    <p>UV Index: <span id="uv" class="bg-danger rounded text-light p-1">9.49</span></p>
+                                </div>
+                            </div>
+                            <div class="card m-2 bg-primary rounded text-light">
+                                <div class="card-header">Day + 3</div>
+                                <div class="card-body">
+                                    <i id="day3-icon" class="mb-1 fas fa-3x fa-sun"></i>
+                                    <p>Temperature: <span id="temp">47.5</span>&#176;F</p>
+                                    <p>Humidity: <span id="humidity">41</span>%</p>
+                                    <p>Wind Speed: <span id="wind">4.7</span>MPH</p>
+                                    <p>UV Index: <span id="uv" class="bg-danger rounded text-light p-1">9.49</span></p>
+                                </div>
+                            </div>
+                            <div class="card m-2 bg-primary rounded text-light">
+                                <div class="card-header">Day + 4</div>
+                                <div class="card-body">
+                                    <i id="day4-icon" class="mb-1 fas fa-3x fa-sun"></i>
+                                    <p>Temperature: <span id="temp">47.5</span>&#176;F</p>
+                                    <p>Humidity: <span id="humidity">41</span>%</p>
+                                    <p>Wind Speed: <span id="wind">4.7</span>MPH</p>
+                                    <p>UV Index: <span id="uv" class="bg-danger rounded text-light p-1">9.49</span></p>
+                                </div>
+                            </div>
+                            <div class="card m-2 bg-primary rounded text-light">
+                                <div class="card-header">Day + 5</div>
+                                <div class="card-body">
+                                    <i id="day5-icon" class="mb-1 fas fa-3x fa-sun"></i>
+                                    <p>Temperature: <span id="temp">47.5</span>&#176;F</p>
+                                    <p>Humidity: <span id="humidity">41</span>%</p>
+                                    <p>Wind Speed: <span id="wind">4.7</span>MPH</p>
+                                    <p>UV Index: <span id="uv" class="bg-danger rounded text-light p-1">9.49</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+
+    <script src="assets/js/script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
