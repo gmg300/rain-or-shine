@@ -1,7 +1,38 @@
 $(document).ready(function() {
   var searchHistory = {};
 
+  var weatherIcons = {
+    day: {
+      clearSky: "http://openweathermap.org/img/wn/01d@2x.png",
+      fewClouds: "http://openweathermap.org/img/wn/02d@2x.png",
+      scatteredClouds: "http://openweathermap.org/img/wn/03d@2x.png",
+      brokenClouds: "http://openweathermap.org/img/wn/04d@2x.png",
+      showerRain: "http://openweathermap.org/img/wn/09d@2x.png",
+      rain: "http://openweathermap.org/img/wn/10d@2x.png",
+      thunderstorm: "http://openweathermap.org/img/wn/11d@2x.png",
+      snow: "http://openweathermap.org/img/wn/13d@2x.png",
+      mist: "http://openweathermap.org/img/wn/50d@2x.png"
+    },
+    night: {
+      clearSky: "http://openweathermap.org/img/wn/01n@2x.png",
+      fewClouds: "http://openweathermap.org/img/wn/02n@2x.png",
+      scatteredClouds: "http://openweathermap.org/img/wn/03n@2x.png",
+      brokenClouds: "http://openweathermap.org/img/wn/04n@2x.png",
+      showerRain: "http://openweathermap.org/img/wn/09n@2x.png",
+      rain: "http://openweathermap.org/img/wn/10n@2x.png",
+      thunderstorm: "http://openweathermap.org/img/wn/11n@2x.png",
+      snow: "http://openweathermap.org/img/wn/13n@2x.png",
+      mist: "http://openweathermap.org/img/wn/50n@2x.png"
+    }
+  };
+
   $("#search-btn").on("click", getWeather);
+
+  function getWeatherIcon(conditions, currentHour) {
+    weatherIcons;
+    switch(conditions)
+
+  }
 
   function getWeather() {
     $("#weather-view").empty();
@@ -24,9 +55,12 @@ $(document).ready(function() {
       var temp = Math.floor((res.main.temp - 273.15) * 1.8 + 32); // Kelvin to Fahrenheit
       var humidity = res.main.humidity;
       var wind = Math.floor(res.wind.speed * 2.237); // m/s to MPH
+      var currentHour = moment().hour();
+      var conditions = res.weather.main;
+
       console.log(res);
       $("#weather-view").append(
-        `<h2 id="current-city" class="pb-3">${currentCity} (${cityDate}) <i id="weatherIcon" class="fas fa-cloud"></i></h2>`
+        `<h2 id="current-city" class="pb-3">${currentCity} (${cityDate})<img src="" /></h2>`
       );
       $("#weather-view").append(`<p>Temperature: ${temp} &#176;F</p>`);
       $("#weather-view").append(`<p>Humidity: ${humidity}%</p>`);
