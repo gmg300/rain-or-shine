@@ -18,7 +18,7 @@
     </header>
     <main class="container-fluid bg-light">
         <div class="row">
-            <div class="col-3 pt-3">
+            <div class="col-sm col-md-3 pt-3">
                 <h3 class="text-dark pl-3">Search by city:</h3>
                 <div class="input-group px-3 pb-3">
                     <input id="search-input" type="search" class="form-control" placeholder="Search" aria-label="Search"
@@ -41,24 +41,26 @@
                     </div>
                 </div>
             </div>
-            <div class="col-9">
+            <div class="col-sm col-md-9">
                 <div id="weather-view" class="border border-dark rounded p-3 mt-3">
                     <h1 class="text-center my-5">Find your city's weather!</h1>
                 </div>
                 <div id="forecast-view" class="p-3">
                     <div class="row">
-                        <div class="mt-3">
-                            <h2>5-Day Forecast:</h2>
+                        <div id="forecast-title" class="mt-3">
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="card-group">
-                            <div class="card m-2 bg-primary rounded text-light">
-                                <div class="card-header">Day + 1</div>
+                            <!-- EXAMPLE CARD -->
+                            <!-- <div class="card m-2 bg-primary rounded text-light">
+                                <div class="card-header">3/15/20</div>
                                 <div class="card-body">
                                     <i id="day1-icon" class="mb-1 fas fa-3x fa-sun"></i>
                                     <p>Temperature: <span id="temp-day1">47.5</span>&#176;F</p>
                                     <p>Humidity: <span id="humidity-day1">41</span>%</p>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>

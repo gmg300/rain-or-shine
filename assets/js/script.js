@@ -58,6 +58,7 @@ $(document).ready(function() {
 
   function getForecast(city) {
     $(".card-group").empty();
+    $("forecast-title").empty();
     var queryURL =
       "https://api.openweathermap.org/data/2.5/forecast?q=" +
       city +
@@ -67,6 +68,7 @@ $(document).ready(function() {
       method: "GET"
     }).then(function(res) {
       console.log(res);
+      $("#forecast-title").append("<h2>5-Day Forecast:</h2>");
       var day = 1;
       for (i = 6; i < 39; i += 8) {
         console.log(res.list[i]);
@@ -75,13 +77,15 @@ $(document).ready(function() {
           .format("l");
         var temp = Math.floor((res.list[i].main.temp - 273.15) * 1.8 + 32); // Kelvin to Fahrenheit
         var humidity = res.list[i].main.humidity;
-        var block = `<div class="card m-2 bg-primary rounded text-light">
+        var block = `<div class="col-sm col-md-6 col-lg-4">
+                    <div class="card m-2 bg-primary rounded text-light">
                         <div class="card-header">${date}</div>
                         <div class="card-body">
                             <i id="day1-icon" class="mb-1 fas fa-3x fa-sun"></i>
                             <p>Temperature: ${temp}&#176;F</p>
                             <p>Humidity: ${humidity}%</p>
                         </div>
+                    </div>
                     </div>`;
         $(".card-group").append(block);
         day++;
