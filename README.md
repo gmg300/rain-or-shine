@@ -14,10 +14,12 @@ A few challenges in this project were creating logic to display correct icons ba
 * Collapse the search history list when in xs/mobile view and replace with sandwich icon
 * Indicate state or country, if I search "Portland" am I seeing Oregon or Maine?
 * A button that allows the user to clear search history
+* Feedback for users when the api does not return a result
 
 
 ## Usage
 https://gmg300.github.io/weather-dashboard/
+
 
 ## Credits
 gmg300 https://github.com/gmg300
