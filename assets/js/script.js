@@ -1,5 +1,6 @@
 $(document).ready(function() {
-  var searchHistory = {};
+  var history;
+  var currentCity;
 
   var weatherIcons = {
     clear: "http://openweathermap.org/img/wn/01d@2x.png",
@@ -11,11 +12,11 @@ $(document).ready(function() {
     mist: "http://openweathermap.org/img/wn/50d@2x.png"
   };
 
-  $("#search-btn").on("click", getWeather);
+  $("#search-btn").on("click", function() {
+    getWeather();
+    setTimeout(function() {console.log(currentCity)}, 3000);
 
-  function getWeatherIcon(con) {
-    return icon;
-  }
+  });
 
   function getWeather() {
     $("#weather-view").empty();
@@ -32,7 +33,7 @@ $(document).ready(function() {
       method: "GET"
     }).then(function(res) {
       var cityDate = moment().format("l");
-      var currentCity = res.name;
+      currentCity = res.name;
       var lat = res.coord.lat;
       var lon = res.coord.lon;
       var temp = Math.floor((res.main.temp - 273.15) * 1.8 + 32); // Kelvin to Fahrenheit
@@ -62,34 +63,38 @@ $(document).ready(function() {
       $("#weather-view").append(`<p>Temperature: ${temp} &#176;F</p>`);
       $("#weather-view").append(`<p>Humidity: ${humidity}%</p>`);
       $("#weather-view").append(`<p>Wind Speed: ${wind} MPH</p>`);
-      $.ajax({
-        url:
-          "http://api.openweathermap.org/data/2.5/uvi?appid=89361e8467bec0f20018786eac13a299&lat=" +
-          lat +
-          "&lon=" +
-          lon,
-        method: "GET"
-      }).then(function(res) {
-        var uvIndex = res.value;
-        var background = "bg-secondary";
-        if (uvIndex <= 2.99) {
-          background = "bg-success";
-        } else if (uvIndex >= 3 && uvIndex <= 7.99) {
-          background = "bg-warning";
-        } else if (uvIndex >= 8) {
-          background = "bg-danger";
-        }
-        $("#weather-view").append(
-          `<p>UV Index: <span class="rounded p-1 ${background}">${uvIndex}</span></p>`
-        );
-      });
+      getUV(lat, lon);
     });
     getForecast(city);
   }
 
+  function getUV(lat, lon) {
+    $.ajax({
+      url:
+        "http://api.openweathermap.org/data/2.5/uvi?appid=89361e8467bec0f20018786eac13a299&lat=" +
+        lat +
+        "&lon=" +
+        lon,
+      method: "GET"
+    }).then(function(res) {
+      var uvIndex = res.value;
+      var background = "bg-secondary";
+      if (uvIndex <= 2.99) {
+        background = "bg-success";
+      } else if (uvIndex >= 3 && uvIndex <= 7.99) {
+        background = "bg-warning";
+      } else if (uvIndex >= 8) {
+        background = "bg-danger";
+      }
+      $("#weather-view").append(
+        `<p>UV Index: <span class="rounded p-1 ${background}">${uvIndex}</span></p>`
+      );
+    });
+  }
+
   function getForecast(city) {
     $(".card-group").empty();
-    $("forecast-title").empty();
+    $("#forecast-title").empty();
     var queryURL =
       "https://api.openweathermap.org/data/2.5/forecast?q=" +
       city +
@@ -102,7 +107,7 @@ $(document).ready(function() {
       $("#forecast-title").append("<h2>5-Day Forecast:</h2>");
       var day = 1;
       for (i = 6; i < 39; i += 8) {
-        console.log(res.list[i]);
+        // console.log(res.list[i]);
         var date = moment()
           .add(day, "days")
           .format("l");
@@ -141,13 +146,8 @@ $(document).ready(function() {
     });
   }
 
-  function getSearchHistory() {}
+  function renderHistory(city) {
 
-  function storeSearchHistory() {}
+  }
 
-  function renderSearchHistory() {}
-
-  function renderWeather() {}
-
-  function renderForecast() {}
 });

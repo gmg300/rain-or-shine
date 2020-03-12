@@ -29,15 +29,9 @@
                     </div>
                 </div>
                 <div id="search-history">
-                    <div class="list-group" id="list-tab" role="tablist">
-                        <a class="list-group-item list-group-item-action active" id="list-chi-list" data-toggle="list"
-                            href="#list-home" role="tab" aria-controls="home">Chicago</a>
-                        <a class="list-group-item list-group-item-action" id="list-sf-list" data-toggle="list"
-                            href="#list-profile" role="tab" aria-controls="profile">San Francisco</a>
-                        <a class="list-group-item list-group-item-action" id="list-den-list" data-toggle="list"
-                            href="#list-messages" role="tab" aria-controls="messages">Denver</a>
-                        <a class="list-group-item list-group-item-action" id="list-sea-list" data-toggle="list"
-                            href="#list-settings" role="tab" aria-controls="settings">Seattle</a>
+                    <div class="list-group">
+                        <!-- Example List Item -->
+                        <!-- <button type="button" class="list-group-item list-group-item-action">City Name</button> -->
                     </div>
                 </div>
             </div>
@@ -53,12 +47,14 @@
                     <div class="row">
                         <div class="card-group">
                             <!-- EXAMPLE CARD -->
-                            <!-- <div class="card m-2 bg-primary rounded text-light">
-                                <div class="card-header">3/15/20</div>
-                                <div class="card-body">
-                                    <i id="day1-icon" class="mb-1 fas fa-3x fa-sun"></i>
-                                    <p>Temperature: <span id="temp-day1">47.5</span>&#176;F</p>
-                                    <p>Humidity: <span id="humidity-day1">41</span>%</p>
+                            <!-- <div class="col-sm col-md-6 col-lg-4">
+                                <div class="card m-2 bg-primary rounded text-light">
+                                    <div class="card-header">${date}</div>
+                                    <div class="card-body">
+                                        <img src="${icon}" />
+                                        <p>Temperature: ${temp}&#176;F</p>
+                                        <p>Humidity: ${humidity}%</p>
+                                    </div>
                                 </div>
                             </div> -->
                         </div>
@@ -69,7 +65,7 @@
     </main>
 
 
-    
+
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

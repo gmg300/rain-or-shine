@@ -6,3 +6,7 @@
     border-radius: 2px 2px 2px 2px;
 }
 
+a .list-group-item-action:active {
+    color: white;
+}
+
