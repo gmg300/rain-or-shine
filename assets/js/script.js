@@ -16,8 +16,15 @@ $(document).ready(function() {
   $("#search-btn").on("click", function() {
     getWeather();
     setTimeout(function() {addCity(currentCity);}, 1500);
-    
   });
+
+  $(document).on('click', ".search-again", function() {
+    $(".search-again").removeClass('active');
+    $(this).addClass('active');
+    var search = $(this).text();
+    $('#search-input').val(search);
+    getWeather();
+  })
 
   function getWeather() {
     $("#weather-view").empty();
@@ -67,6 +74,7 @@ $(document).ready(function() {
       getUV(lat, lon);
     });
     getForecast(city);
+    $('#search-input').val('');
   }
 
   function getUV(lat, lon) {
@@ -178,11 +186,12 @@ $(document).ready(function() {
     } else {
       for(i = 0; i < history.length; i++) {
         var city = history[i];
-        var block = `<button type="button" class="list-group-item list-group-item-action">${city}</button>`;
+        var block = `<button type="button" class="search-again list-group-item list-group-item-action">${city}</button>`;
         $('#search-history').append(block);
       }
     }
     
   }
+
 
 });
