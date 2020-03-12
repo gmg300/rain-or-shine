@@ -1,7 +1,6 @@
 $(document).ready(function() {
-  var history;
+  var history = [];
   var currentCity;
-
   var weatherIcons = {
     clear: "http://openweathermap.org/img/wn/01d@2x.png",
     clouds: "http://openweathermap.org/img/wn/02d@2x.png",
@@ -12,10 +11,12 @@ $(document).ready(function() {
     mist: "http://openweathermap.org/img/wn/50d@2x.png"
   };
 
+  getHistory();
+
   $("#search-btn").on("click", function() {
     getWeather();
-    setTimeout(function() {console.log(currentCity)}, 3000);
-
+    setTimeout(function() {addCity(currentCity);}, 1500);
+    
   });
 
   function getWeather() {
@@ -146,8 +147,42 @@ $(document).ready(function() {
     });
   }
 
-  function renderHistory(city) {
+  function addCity(city) {
+    if(city == "undefined" || city == null || history.includes(city)) {
+      return;
+    } else {
+      history.push(city);
+      storeHistory();
+      renderHistory();
+    }
+  }
 
+  function getHistory() {
+    var storedHistory = JSON.parse(localStorage.getItem("history"));
+    if(storedHistory == null) {
+      history = [];
+    } else {
+      history = storedHistory;
+    }
+    renderHistory();
+  }
+
+  function storeHistory() {
+    localStorage.setItem("history", JSON.stringify(history));
+  }
+
+  function renderHistory() {
+    $('#search-history').empty();
+    if(history == '' || history == "undefined" || history == null) {
+      return;
+    } else {
+      for(i = 0; i < history.length; i++) {
+        var city = history[i];
+        var block = `<button type="button" class="list-group-item list-group-item-action">${city}</button>`;
+        $('#search-history').append(block);
+      }
+    }
+    
   }
 
 });
