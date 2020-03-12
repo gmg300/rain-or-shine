@@ -10,3 +10,13 @@ button:focus{
     outline: 0;
 }
 
+.btn:focus {
+    outline: 0;
+}
+
+.toggle {
+    width: 50%;
+    display: block;
+
+}
+
