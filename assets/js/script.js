@@ -192,6 +192,4 @@ $(document).ready(function() {
     }
     
   }
-
-
 });
