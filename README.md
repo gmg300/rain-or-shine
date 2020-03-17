@@ -1,17 +1,20 @@
-# weather-dashboard v0.1.0
+# weather-dashboard v0.2.0
 
 <img alt="Weather Dashboard v0.1.0 gif" src="assets/images/weather-dashboard_0-1-0.gif">
 
 
 ## Description
-A weather app that shows basic weather data, and a 5-day forecast for a city based on user search.
+A weather app that shows basic weather data, and a 5-day forecast for a city based on user search. User search history is saved in a list that can get weather data again when the user clicks on the city name.
 
 **Challenges**  
 A few challenges in this project were creating logic to display correct icons based on weather conditions, getting the separate UV index condition using data from the original api query and creating a search bar that persists and allows users to add searches and re-search cities.  
 
+**v0.2.0**
+* IMPROVEMENT - js code refactored, split into more manageable and readable functions will maintaining functionality
+* NEW - Search history toggles collapse of the search history list group
+
 **Future Versions**
 * Make the GUI prettier and less vanilla Bootstrap
-* Collapse the search history list when in xs/mobile view and replace with sandwich icon
 * Indicate state or country, if I search "Portland" am I seeing Oregon or Maine?
 * A button that allows the user to clear search history
 * Feedback for users when the api does not return a result

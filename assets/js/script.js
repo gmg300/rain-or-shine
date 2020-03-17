@@ -15,23 +15,24 @@ $(document).ready(function() {
 
   $("#search-btn").on("click", function() {
     getWeather();
-    setTimeout(function() {addCity(currentCity);}, 1500);
+    setTimeout(function() {
+      addCity(currentCity);
+    }, 1500);
   });
 
-  $(document).on('click', ".search-again", function() {
-    $(".search-again").removeClass('active');
-    $(this).addClass('active');
+  $(document).on("click", ".search-again", function() {
+    $(".search-again").removeClass("active");
+    $(this).addClass("active");
     var search = $(this).text();
-    $('#search-input').val(search);
+    $("#search-input").val(search);
     getWeather();
-  })
+  });
 
   function getWeather() {
     $("#weather-view").empty();
-    var city = $("#search-input")
+    var city = $("#search-input") // Get user search input
       .val()
       .trim();
-    // console.log(city);
     var queryURL =
       "https://api.openweathermap.org/data/2.5/weather?q=" +
       city +
@@ -40,41 +41,50 @@ $(document).ready(function() {
       url: queryURL,
       method: "GET"
     }).then(function(res) {
-      var cityDate = moment().format("l");
-      currentCity = res.name;
+      console.log('Current Weather');
+      console.log(res);
+      currentCity = res.name; // Set city name for query globally
       var lat = res.coord.lat;
       var lon = res.coord.lon;
-      var temp = Math.floor((res.main.temp - 273.15) * 1.8 + 32); // Kelvin to Fahrenheit
-      var humidity = res.main.humidity;
-      var wind = Math.floor(res.wind.speed * 2.237); // m/s to MPH
-      var con = res.weather[0].main;
-      var icon = "";
-      if (con == "Clear") {
-        icon = weatherIcons.clear;
-      } else if (con == "Clouds") {
-        icon = weatherIcons.clouds;
-      } else if (con == "Drizzle") {
-        icon = weatherIcons.drizzle;
-      } else if (con == "Rain") {
-        icon = weatherIcons.rain;
-      } else if (con == "Thunderstorm") {
-        icon = weatherIcons.thunderstorm;
-      } else if (con == "Snow") {
-        icon = weatherIcons.snow;
-      } else {
-        icon = weatherIcons.mist;
-      }
-      // console.log(res);
-      $("#weather-view").append(
-        `<h2 id="current-city" class="pb-3">${currentCity} (${cityDate})<img src="${icon}" /></h2>`
-      );
-      $("#weather-view").append(`<p>Temperature: ${temp} &#176;F</p>`);
-      $("#weather-view").append(`<p>Humidity: ${humidity}%</p>`);
-      $("#weather-view").append(`<p>Wind Speed: ${wind} MPH</p>`);
+      renderWeather(res, currentCity);
       getUV(lat, lon);
     });
     getForecast(city);
-    $('#search-input').val('');
+    $("#search-input").val("");
+  }
+
+  function renderWeather(res, currentCity) {
+    var cityDate = moment().format("l");
+    var temp = Math.floor((res.main.temp - 273.15) * 1.8 + 32); // Kelvin to Fahrenheit
+    var humidity = res.main.humidity;
+    var wind = Math.floor(res.wind.speed * 2.237); // m/s to MPH
+    var con = res.weather[0].main;
+    var icon = getIcon(con);
+    var block = `<h2 id="current-city" class="pb-3">${currentCity} (${cityDate})<img src="${icon}" /></h2>
+                  <p>Temperature: ${temp} &#176;F</p>
+                  <p>Humidity: ${humidity}%</p>
+                  <p>Wind Speed: ${wind} MPH</p>`;
+    $("#weather-view").append(block);
+  }
+
+  function getIcon(con) {
+    var icon = "";
+    if (con == "Clear") {
+      icon = weatherIcons.clear;
+    } else if (con == "Clouds") {
+      icon = weatherIcons.clouds;
+    } else if (con == "Drizzle") {
+      icon = weatherIcons.drizzle;
+    } else if (con == "Rain") {
+      icon = weatherIcons.rain;
+    } else if (con == "Thunderstorm") {
+      icon = weatherIcons.thunderstorm;
+    } else if (con == "Snow") {
+      icon = weatherIcons.snow;
+    } else {
+      icon = weatherIcons.mist;
+    }
+    return icon;
   }
 
   function getUV(lat, lon) {
@@ -112,34 +122,25 @@ $(document).ready(function() {
       url: queryURL,
       method: "GET"
     }).then(function(res) {
-      // console.log(res);
+      console.log('Forecast');
+      console.log(res);
       $("#forecast-title").append("<h2>5-Day Forecast:</h2>");
-      var day = 1;
-      for (i = 6; i < 39; i += 8) {
-        // console.log(res.list[i]);
-        var date = moment()
-          .add(day, "days")
-          .format("l");
-        var temp = Math.floor((res.list[i].main.temp - 273.15) * 1.8 + 32); // Kelvin to Fahrenheit
-        var humidity = res.list[i].main.humidity;
-        var con = res.list[i].weather[0].main;
-        var icon = "";
-        if (con == "Clear") {
-          icon = weatherIcons.clear;
-        } else if (con == "Clouds") {
-          icon = weatherIcons.clouds;
-        } else if (con == "Drizzle") {
-          icon = weatherIcons.drizzle;
-        } else if (con == "Rain") {
-          icon = weatherIcons.rain;
-        } else if (con == "Thunderstorm") {
-          icon = weatherIcons.thunderstorm;
-        } else if (con == "Snow") {
-          icon = weatherIcons.snow;
-        } else {
-          icon = weatherIcons.mist;
-        }
-        var block = `<div class="col-sm col-md-6 col-lg-4">
+      renderForecast(res);
+    });
+  }
+
+  function renderForecast(res) {
+    var day = 1;
+    for (i = 6; i < 39; i += 8) {
+      // console.log(res.list[i]);
+      var date = moment()
+        .add(day, "days")
+        .format("l");
+      var temp = Math.floor((res.list[i].main.temp - 273.15) * 1.8 + 32); // Kelvin to Fahrenheit
+      var humidity = res.list[i].main.humidity;
+      var con = res.list[i].weather[0].main;
+      var icon = getIcon(con);
+      var block = `<div class="col-sm col-md-6 col-lg-4">
                     <div class="card m-2 bg-primary rounded text-light">
                         <div class="card-header">${date}</div>
                         <div class="card-body">
@@ -149,14 +150,13 @@ $(document).ready(function() {
                         </div>
                     </div>
                     </div>`;
-        $(".card-group").append(block);
-        day++;
-      }
-    });
+      $(".card-group").append(block);
+      day++;
+    }
   }
 
   function addCity(city) {
-    if(city == "undefined" || city == null || history.includes(city)) {
+    if (city == "undefined" || city == null || history.includes(city)) {
       return;
     } else {
       history.push(city);
@@ -167,7 +167,7 @@ $(document).ready(function() {
 
   function getHistory() {
     var storedHistory = JSON.parse(localStorage.getItem("history"));
-    if(storedHistory == null) {
+    if (storedHistory == null) {
       history = [];
     } else {
       history = storedHistory;
@@ -180,16 +180,15 @@ $(document).ready(function() {
   }
 
   function renderHistory() {
-    $('#search-history').empty();
-    if(history == '' || history == "undefined" || history == null) {
+    $("#search-history").empty();
+    if (history == "" || history == "undefined" || history == null) {
       return;
     } else {
-      for(i = 0; i < history.length; i++) {
+      for (i = 0; i < history.length; i++) {
         var city = history[i];
         var block = `<button type="button" class="search-again list-group-item list-group-item-action">${city}</button>`;
-        $('#search-history').append(block);
+        $("#search-history").append(block);
       }
     }
-    
   }
 });
