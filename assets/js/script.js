@@ -1,15 +1,7 @@
 $(document).ready(function() {
   var history = [];
   var currentCity;
-  var weatherIcons = {
-    clear: "http://openweathermap.org/img/wn/01d@2x.png",
-    clouds: "http://openweathermap.org/img/wn/02d@2x.png",
-    drizzle: "http://openweathermap.org/img/wn/09d@2x.png",
-    rain: "http://openweathermap.org/img/wn/10d@2x.png",
-    thunderstorm: "http://openweathermap.org/img/wn/11d@2x.png",
-    snow: "http://openweathermap.org/img/wn/13d@2x.png",
-    mist: "http://openweathermap.org/img/wn/50d@2x.png"
-  };
+  
 
   getHistory();
 
@@ -68,6 +60,15 @@ $(document).ready(function() {
   }
 
   function getIcon(con) {
+    var weatherIcons = {
+      clear: "http://openweathermap.org/img/wn/01d@2x.png",
+      clouds: "http://openweathermap.org/img/wn/02d@2x.png",
+      drizzle: "http://openweathermap.org/img/wn/09d@2x.png",
+      rain: "http://openweathermap.org/img/wn/10d@2x.png",
+      thunderstorm: "http://openweathermap.org/img/wn/11d@2x.png",
+      snow: "http://openweathermap.org/img/wn/13d@2x.png",
+      mist: "http://openweathermap.org/img/wn/50d@2x.png"
+    };
     var icon = "";
     if (con == "Clear") {
       icon = weatherIcons.clear;
