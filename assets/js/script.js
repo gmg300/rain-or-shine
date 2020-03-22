@@ -2,26 +2,27 @@ $(document).ready(function() {
   var history = [];
   var currentCity;
   
-
   getHistory();
 
+  // SEARCH WEATHER BY CITY
   $("#search-btn").on("click", function() {
     getWeather();
+    // Set timeout so that currentCity is set to value after ajax promise completes
     setTimeout(function() {
       addCity(currentCity);
     }, 1500);
   });
-
+  // DISPLAY WEATHER FROM CITY IN SEARCH HISTORY
   $(document).on("click", ".search-again", function() {
-    $(".search-again").removeClass("active");
+    $(".search-again").removeClass("active"); // Reset and set active status on list group item
     $(this).addClass("active");
-    var search = $(this).text();
+    var search = $(this).text(); // Use text from list group item to query weather api
     $("#search-input").val(search);
     getWeather();
   });
 
-  function getWeather() {
-    $("#weather-view").empty();
+  function getWeather() { // Partial structure credit - Trilogy 06-Server-Side-APIs activities
+    $("#weather-view").empty(); // Clear weather-view div for new data
     var city = $("#search-input") // Get user search input
       .val()
       .trim();
@@ -42,15 +43,15 @@ $(document).ready(function() {
       getUV(lat, lon);
     });
     getForecast(city);
-    $("#search-input").val("");
+    $("#search-input").val(""); // Clear search input box 
   }
 
-  function renderWeather(res, currentCity) {
+  function renderWeather(res, currentCity) { // Partial structure credit - Trilogy 06-Server-Side-APIs activities
     var cityDate = moment().format("l");
     var temp = Math.floor((res.main.temp - 273.15) * 1.8 + 32); // Kelvin to Fahrenheit
     var humidity = res.main.humidity;
     var wind = Math.floor(res.wind.speed * 2.237); // m/s to MPH
-    var con = res.weather[0].main;
+    var con = res.weather[0].main; // Weather conditions
     var icon = getIcon(con);
     var block = `<h2 id="current-city" class="pb-3">${currentCity} (${cityDate})<img src="${icon}" /></h2>
                   <p>Temperature: ${temp} &#176;F</p>
@@ -60,7 +61,7 @@ $(document).ready(function() {
   }
 
   function getIcon(con) {
-    var weatherIcons = {
+    var weatherIcons = { // Open Weather API common weather conditions with links to icons
       clear: "http://openweathermap.org/img/wn/01d@2x.png",
       clouds: "http://openweathermap.org/img/wn/02d@2x.png",
       drizzle: "http://openweathermap.org/img/wn/09d@2x.png",
@@ -70,7 +71,7 @@ $(document).ready(function() {
       mist: "http://openweathermap.org/img/wn/50d@2x.png"
     };
     var icon = "";
-    if (con == "Clear") {
+    if (con == "Clear") { // Set weather icon based on conditions from api query
       icon = weatherIcons.clear;
     } else if (con == "Clouds") {
       icon = weatherIcons.clouds;
@@ -88,7 +89,7 @@ $(document).ready(function() {
     return icon;
   }
 
-  function getUV(lat, lon) {
+  function getUV(lat, lon) { // Search UV index separately with lat and lon
     $.ajax({
       url:
         "http://api.openweathermap.org/data/2.5/uvi?appid=89361e8467bec0f20018786eac13a299&lat=" +
@@ -99,7 +100,7 @@ $(document).ready(function() {
     }).then(function(res) {
       var uvIndex = res.value;
       var background = "bg-secondary";
-      if (uvIndex <= 2.99) {
+      if (uvIndex <= 2.99) { // Set bg color based on index number/severity
         background = "bg-success";
       } else if (uvIndex >= 3 && uvIndex <= 7.99) {
         background = "bg-warning";
@@ -112,8 +113,8 @@ $(document).ready(function() {
     });
   }
 
-  function getForecast(city) {
-    $(".card-group").empty();
+  function getForecast(city) { // Partial structure credit - Trilogy 06-Server-Side-APIs activities
+    $(".card-group").empty(); // Clear card-group and forecast-title div for new data
     $("#forecast-title").empty();
     var queryURL =
       "https://api.openweathermap.org/data/2.5/forecast?q=" +
@@ -130,16 +131,17 @@ $(document).ready(function() {
     });
   }
 
-  function renderForecast(res) {
+  function renderForecast(res) { // Partial structure credit - Trilogy 06-Server-Side-APIs activities
     var day = 1;
-    for (i = 6; i < 39; i += 8) {
+    // Open Weather api uses 3 hour increments for their 5-day forecast, meaning 40 total items in the query res array
+    for (i = 6; i < 39; i += 8) { // Get weather at 6pm each day, 6 is the 3rd to last item for each day, add 8 to get 6pm on the next day
       // console.log(res.list[i]);
-      var date = moment()
+      var date = moment() // Get date n days in the future
         .add(day, "days")
-        .format("l");
+        .format("l"); 
       var temp = Math.floor((res.list[i].main.temp - 273.15) * 1.8 + 32); // Kelvin to Fahrenheit
       var humidity = res.list[i].main.humidity;
-      var con = res.list[i].weather[0].main;
+      var con = res.list[i].weather[0].main; // Get weather conditions
       var icon = getIcon(con);
       var block = `<div class="col-sm col-md-6 col-lg-4">
                     <div class="card m-2 bg-primary rounded text-light">
@@ -152,7 +154,7 @@ $(document).ready(function() {
                     </div>
                     </div>`;
       $(".card-group").append(block);
-      day++;
+      day++; 
     }
   }
 
@@ -166,9 +168,9 @@ $(document).ready(function() {
     }
   }
 
-  function getHistory() {
+  function getHistory() { 
     var storedHistory = JSON.parse(localStorage.getItem("history"));
-    if (storedHistory == null) {
+    if (storedHistory == null) { // If there is no history in localStorage use empty array
       history = [];
     } else {
       history = storedHistory;
@@ -176,7 +178,7 @@ $(document).ready(function() {
     renderHistory();
   }
 
-  function storeHistory() {
+  function storeHistory() { 
     localStorage.setItem("history", JSON.stringify(history));
   }
 

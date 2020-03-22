@@ -25,7 +25,7 @@ https://gmg300.github.io/weather-dashboard/
 
 
 ## Credits
-gmg300 https://github.com/gmg300
+[gmg300](https://github.com/gmg300)
 
 <img alt="Bootstrap Logo" src="https://upload.wikimedia.org/wikipedia/commons/b/b2/Bootstrap_logo.svg" width="30" height="30"> Bootstrap v4.4.1 https://getbootstrap.com/
 
