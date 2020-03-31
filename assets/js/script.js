@@ -1,16 +1,11 @@
 $(document).ready(function() {
   var history = [];
-  var currentCity;
   
   getHistory();
 
   // SEARCH WEATHER BY CITY
   $("#search-btn").on("click", function() {
     getWeather();
-    // Set timeout so that currentCity is set to value after ajax promise completes
-    setTimeout(function() {
-      addCity(currentCity);
-    }, 1500);
   });
   // DISPLAY WEATHER FROM CITY IN SEARCH HISTORY
   $(document).on("click", ".search-again", function() {
@@ -36,7 +31,8 @@ $(document).ready(function() {
     }).then(function(res) {
       console.log('Current Weather');
       console.log(res);
-      currentCity = res.name; // Set city name for query globally
+      var currentCity = res.name; // Set city name for query globally
+      addCity(currentCity);
       var lat = res.coord.lat;
       var lon = res.coord.lon;
       renderWeather(res, currentCity);
