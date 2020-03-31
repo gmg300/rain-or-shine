@@ -1,4 +1,4 @@
-# weather-dashboard v0.2.0
+# weather-dashboard v0.3.0
 
 <img alt="Weather Dashboard v0.1.0 gif" src="assets/images/weather-dashboard_0-1-0.gif">
 
@@ -9,9 +9,8 @@ A weather app that shows basic weather data, and a 5-day forecast for a city bas
 **Challenges**  
 A few challenges in this project were creating logic to display correct icons based on weather conditions, getting the separate UV index condition using data from the original api query and creating a search bar that persists and allows users to add searches and re-search cities.  
 
-**v0.2.0**
-* IMPROVEMENT - js code refactored, split into more manageable and readable functions will maintaining functionality
-* NEW - Search history toggles collapse of the search history list group
+**v0.3.0**
+* IMPROVEMENT - addCity function now lives in the getWeather function so that it waits to set currentCity until api response instead of using a setTimeout
 
 **Future Versions**
 * Make the GUI prettier and less vanilla Bootstrap
