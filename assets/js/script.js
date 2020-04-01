@@ -4,7 +4,8 @@ $(document).ready(function() {
   getHistory();
 
   // SEARCH WEATHER BY CITY
-  $("#search-btn").on("click", function() {
+  $("#search-btn").on("click", function(e) {
+    e.preventDefault();
     getWeather();
   });
   // DISPLAY WEATHER FROM CITY IN SEARCH HISTORY
@@ -17,10 +18,15 @@ $(document).ready(function() {
   });
 
   function getWeather() { // Partial structure credit - Trilogy 06-Server-Side-APIs activities
-    $("#weather-view").empty(); // Clear weather-view div for new data
     var city = $("#search-input") // Get user search input
       .val()
       .trim();
+    if(city == '') {
+      return;
+    }
+    $("#weather-view").empty(); // Clear page of rendered data
+    $(".card-group").empty();
+    $("#forecast-title").empty(); 
     var queryURL =
       "https://api.openweathermap.org/data/2.5/weather?q=" +
       city +
@@ -37,6 +43,10 @@ $(document).ready(function() {
       var lon = res.coord.lon;
       renderWeather(res, currentCity);
       getUV(lat, lon);
+    })
+    .catch(() => {
+      var block = `<h1 class="text-center text-danger my-5">We couldn't find weather for "${city}"</h1>`; 
+      $('#weather-view').append(block);
     });
     getForecast(city);
     $("#search-input").val(""); // Clear search input box 
@@ -110,8 +120,6 @@ $(document).ready(function() {
   }
 
   function getForecast(city) { // Partial structure credit - Trilogy 06-Server-Side-APIs activities
-    $(".card-group").empty(); // Clear card-group and forecast-title div for new data
-    $("#forecast-title").empty();
     var queryURL =
       "https://api.openweathermap.org/data/2.5/forecast?q=" +
       city +
