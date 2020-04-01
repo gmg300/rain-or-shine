@@ -45,7 +45,7 @@ $(document).ready(function() {
       getUV(lat, lon);
     })
     .catch(() => {
-      var block = `<h1 class="text-center text-danger my-5">We couldn't find weather for "${city}"</h1>`; 
+      var block = `<h1 class="text-center text-danger my-5">I couldn't find weather for that city :(</h1>`; 
       $('#weather-view').append(block);
     });
     getForecast(city);
