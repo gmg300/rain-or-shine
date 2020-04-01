@@ -25,7 +25,7 @@ $(document).ready(function() {
       return;
     }
     $("#weather-view").empty(); // Clear page of rendered data
-    $(".card-group").empty();
+    $(".card-deck").empty();
     $("#forecast-title").empty(); 
     var queryURL =
       "https://api.openweathermap.org/data/2.5/weather?q=" +
@@ -147,8 +147,8 @@ $(document).ready(function() {
       var humidity = res.list[i].main.humidity;
       var con = res.list[i].weather[0].main; // Get weather conditions
       var icon = getIcon(con);
-      var block = `<div class="col-sm col-md-6 col-lg-4">
-                    <div class="card m-2 bg-primary rounded text-light">
+      var block = `<div class="col-sm col-lg-4">
+                    <div class="card mt-3 bg-primary rounded text-light">
                         <div class="card-header">${date}</div>
                         <div class="card-body">
                             <img src="${icon}" />
@@ -157,7 +157,7 @@ $(document).ready(function() {
                         </div>
                     </div>
                     </div>`;
-      $(".card-group").append(block);
+      $(".card-deck").append(block);
       day++; 
     }
   }
