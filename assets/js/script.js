@@ -143,12 +143,15 @@ $(document).ready(function() {
       var date = moment() // Get date n days in the future
         .add(day, "days")
         .format("l"); 
+      var dayOfWeek = moment() // Get date n days in the future
+      .add(day, "days")
+      .format("dddd"); 
       var temp = Math.floor((res.list[i].main.temp - 273.15) * 1.8 + 32); // Kelvin to Fahrenheit
       var humidity = res.list[i].main.humidity;
       var con = res.list[i].weather[0].main; // Get weather conditions
       var icon = getIcon(con);
       var block = `<div class="card mt-3 bg-primary rounded text-light" style="min-width: 20rem; max-width: 20rem;">
-                        <div class="card-header text-center">${date}</div>
+                        <div class="card-header text-center">${dayOfWeek} ${date}</div>
                         <div class="card-body text-center">
                             <img src="${icon}" />
                             <p>Temperature: ${temp}&#176;F</p>
