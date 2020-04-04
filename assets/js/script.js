@@ -35,8 +35,8 @@ $(document).ready(function() {
       url: queryURL,
       method: "GET"
     }).then(function(res) {
-      console.log('Current Weather');
-      console.log(res);
+      // console.log('Current Weather');
+      // console.log(res);
       var currentCity = res.name; // Set city name for query globally
       addCity(currentCity);
       var lat = res.coord.lat;
@@ -128,8 +128,8 @@ $(document).ready(function() {
       url: queryURL,
       method: "GET"
     }).then(function(res) {
-      console.log('Forecast');
-      console.log(res);
+      // console.log('Forecast');
+      // console.log(res);
       $("#forecast-title").append("<h2>5-Day Forecast:</h2>");
       renderForecast(res);
     });
@@ -147,15 +147,13 @@ $(document).ready(function() {
       var humidity = res.list[i].main.humidity;
       var con = res.list[i].weather[0].main; // Get weather conditions
       var icon = getIcon(con);
-      var block = `<div class="col-sm col-lg-4">
-                    <div class="card mt-3 bg-primary rounded text-light">
-                        <div class="card-header">${date}</div>
-                        <div class="card-body">
+      var block = `<div class="card mt-3 bg-primary rounded text-light" style="min-width: 20rem; max-width: 20rem;">
+                        <div class="card-header text-center">${date}</div>
+                        <div class="card-body text-center">
                             <img src="${icon}" />
                             <p>Temperature: ${temp}&#176;F</p>
                             <p>Humidity: ${humidity}%</p>
                         </div>
-                    </div>
                     </div>`;
       $(".card-deck").append(block);
       day++; 
