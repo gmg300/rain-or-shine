@@ -1,4 +1,4 @@
-# weather-dashboard v0.3.0
+# weather-dashboard v0.4.0
 
 <img alt="Weather Dashboard v0.1.0 gif" src="assets/images/weather-dashboard_0-1-0.gif">
 
@@ -9,14 +9,15 @@ A weather app that shows basic weather data, and a 5-day forecast for a city bas
 **Challenges**  
 A few challenges in this project were creating logic to display correct icons based on weather conditions, getting the separate UV index condition using data from the original api query and creating a search bar that persists and allows users to add searches and re-search cities.  
 
-**v0.3.0**
-* IMPROVEMENT - addCity function now lives in the getWeather function so that it waits to set currentCity until api response instead of using a setTimeout
+**v0.4.0**
+* IMPROVEMENT - Search history button is now labeled
+* IMPROVEMENT - Forecast card min-width is set larger and takes up more screen width on mobile
+* IMPROVEMENT - Console.log statements will no longer show in the console
 
 **Future Versions**
 * Make the GUI prettier and less vanilla Bootstrap
 * Indicate state or country, if I search "Portland" am I seeing Oregon or Maine?
 * A button that allows the user to clear search history
-* Feedback for users when the api does not return a result
 
 
 ## Usage
