@@ -98,7 +98,7 @@ $(document).ready(function() {
   function getUV(lat, lon) { // Search UV index separately with lat and lon
     $.ajax({
       url:
-        "http://api.openweathermap.org/data/2.5/uvi?appid=89361e8467bec0f20018786eac13a299&lat=" +
+        "https://api.openweathermap.org/data/2.5/uvi?appid=89361e8467bec0f20018786eac13a299&lat=" +
         lat +
         "&lon=" +
         lon,
